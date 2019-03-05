@@ -29,8 +29,6 @@ RCT_EXPORT_METHOD(setVisitorInfo:(NSDictionary *)options) {
 }
 
 RCT_EXPORT_METHOD(startChat:(NSDictionary *)options) {
-  UIView *statusBar = (UIView *)[[UIApplication sharedApplication] valueForKey:@"statusBar"];
-  statusBar.backgroundColor = [[UIColor alloc] initWithRed:0 green:(190.0/255.0) blue:(179.0/255.0) alpha:1.0];
   NSDictionary *navbarAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                     [UIColor whiteColor] ,NSForegroundColorAttributeName, nil];
   [[UINavigationBar appearance] setTitleTextAttributes:navbarAttributes];
