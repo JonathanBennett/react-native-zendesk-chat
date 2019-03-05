@@ -46,7 +46,7 @@ project(':react-native-zendesk-chat').projectDir = new File(rootProject.projectD
 4. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
 
 ```
-compile project(':react-native-zendesk-chat')
+implementation project(':react-native-zendesk-chat')
 ```
 
 5. Configure `ZopimChat` in `android/app/main/java/[...]/MainActivity.java`
