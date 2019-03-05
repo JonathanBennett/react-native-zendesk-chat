@@ -29,13 +29,6 @@ RCT_EXPORT_METHOD(setVisitorInfo:(NSDictionary *)options) {
 }
 
 RCT_EXPORT_METHOD(startChat:(NSDictionary *)options) {
-  NSDictionary *navbarAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
-                                    [UIColor whiteColor] ,NSForegroundColorAttributeName, nil];
-  [[UINavigationBar appearance] setTitleTextAttributes:navbarAttributes];
-  [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-  [[UINavigationBar appearance] setBarTintColor:[[UIColor alloc] initWithRed:0 green:(190.0/255.0) blue:(179.0/255.0) alpha:1.0]];
-  [[ZDCChatOverlay appearance] setInsets:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(75.0f, 15.0f, 70.0f, 15.0f)]];
-
   [self setVisitorInfo:options];
 
   dispatch_sync(dispatch_get_main_queue(), ^{
