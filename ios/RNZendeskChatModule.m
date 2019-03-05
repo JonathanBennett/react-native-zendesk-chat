@@ -29,6 +29,15 @@ RCT_EXPORT_METHOD(setVisitorInfo:(NSDictionary *)options) {
 }
 
 RCT_EXPORT_METHOD(startChat:(NSDictionary *)options) {
+  UIView *statusBar = (UIView *)[[UIApplication sharedApplication] valueForKey:@"statusBar"];
+  statusBar.backgroundColor = [[UIColor alloc] initWithRed:0 green:(190.0/255.0) blue:(179.0/255.0) alpha:1.0];
+  NSDictionary *navbarAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                    [UIColor whiteColor] ,NSForegroundColorAttributeName, nil];
+  [[UINavigationBar appearance] setTitleTextAttributes:navbarAttributes];
+  [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+  [[UINavigationBar appearance] setBarTintColor:[[UIColor alloc] initWithRed:0 green:(190.0/255.0) blue:(179.0/255.0) alpha:1.0]];
+  [[ZDCChatOverlay appearance] setInsets:[NSValue valueWithUIEdgeInsets:UIEdgeInsetsMake(75.0f, 15.0f, 70.0f, 15.0f)]];
+
   [self setVisitorInfo:options];
 
   dispatch_sync(dispatch_get_main_queue(), ^{
@@ -42,8 +51,8 @@ RCT_EXPORT_METHOD(startChat:(NSDictionary *)options) {
       config.preChatDataRequirements.name       = ZDCPreChatDataRequired;
       config.preChatDataRequirements.email      = options[@"emailNotRequired"] ? ZDCPreChatDataNotRequired : ZDCPreChatDataRequired;
       config.preChatDataRequirements.phone      = options[@"phoneNotRequired"] ? ZDCPreChatDataNotRequired : ZDCPreChatDataRequired;
-      config.preChatDataRequirements.department = options[@"departmentNotRequired"] ? ZDCPreChatDataNotRequired : ZDCPreChatDataRequiredEditable;
-      config.preChatDataRequirements.message    = options[@"messageNotRequired"] ? ZDCPreChatDataNotRequired : ZDCPreChatDataRequired;
+      config.preChatDataRequirements.department = ZDCPreChatDataOptional;
+      config.preChatDataRequirements.message    = ZDCPreChatDataOptional;
     }];
   });
 }
