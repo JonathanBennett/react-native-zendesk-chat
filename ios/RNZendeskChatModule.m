@@ -51,7 +51,7 @@ RCT_EXPORT_METHOD(startChat:(NSDictionary *)options) {
 }
 
 + (id)allocWithZone:(NSZone *)zone {
-  static RNZendeskChat *sharedInstance = nil;
+  static RNZendeskChatModule *sharedInstance = nil;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
     sharedInstance = [super allocWithZone:zone];
