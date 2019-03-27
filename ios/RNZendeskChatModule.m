@@ -9,6 +9,8 @@
 #import "RNZendeskChatModule.h"
 #import <ZDCChat/ZDCChat.h>
 
+bool hasListeners = NO;
+
 @implementation RNZendeskChatModule
 
 RCT_EXPORT_MODULE(RNZendeskChatModule);
@@ -46,6 +48,34 @@ RCT_EXPORT_METHOD(startChat:(NSDictionary *)options) {
       config.preChatDataRequirements.message    = ZDCPreChatDataOptional;
     }];
   });
+}
+
++ (id)allocWithZone:(NSZone *)zone {
+  static RNZendeskChat *sharedInstance = nil;
+  static dispatch_once_t onceToken;
+  dispatch_once(&onceToken, ^{
+    sharedInstance = [super allocWithZone:zone];
+  });
+  return sharedInstance;
+}
+
+- (NSArray<NSString *> *)supportedEvents
+{
+  return @[@"ZDChatEvent"];
+}
+
+-(void)startObserving {
+  hasListeners = YES;
+}
+
+-(void)stopObserving {
+  hasListeners = NO;
+}
+
+- (void)chatEventReceived:(NSNumber *)messageCount {
+  if (hasListeners) {
+    [self sendEventWithName:@"ZDChatEvent" body:@{@"counter": messageCount}];
+  }
 }
 
 @end
